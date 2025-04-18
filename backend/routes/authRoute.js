@@ -54,6 +54,7 @@ authRouter.post("/login",async(req,res)=>{
             return res.status(401).send("Invalid credentials");
         }
         const token = user.getJWT();
+        console.log(token);
         res.cookie('token',token);
         res.status(200).send("Login Suceesfull");
     }catch(err){
@@ -61,7 +62,7 @@ authRouter.post("/login",async(req,res)=>{
     }
 });
 //LogOut API
-authRouter.post('./logout'),authUser,async(req,res)=>{
+authRouter.post("/logout"),authUser,async(req,res)=>{
     res.clearCookie('token');
     res.send("Logout Successfull");
 }

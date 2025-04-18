@@ -10,12 +10,14 @@ const authUser=async(req,res,next)=>{
         if(!token){
             return res.status(401).send("Unauthorized User");
         }
+        console.log(token);
         const decoded = await jwt.verify(token,process.env.JWT_SECRET_KEY);
         const{_id}=decoded;
         const user = await User.findById(_id);
         if(!user){
             return res.status(404).send("Unauthorized User");
         }
+         console.log(user);
          req.user=user
          next();
     }catch(err){

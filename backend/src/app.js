@@ -1,24 +1,25 @@
+require("dotenv").config();
 const express = require("express");
 const connectdb=require("../config/dbconnect");
-const authRoute = require("../routes/authRoute");
+const authRouter = require("../routes/authRoute");
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.json());
 
+app.use("/auth",authRouter);
 connectdb()
 .then(()=>{
     console.log("Database is ready ");
-    app.listen(7777,(req,res)=>{
-        console.log("server is running on 7777");
+    app.listen(PORT,(req,res)=>{
+        console.log(`Server is running on ${PORT}`);
     })
 })
 .catch((err)=>{
     console.log("some issue occured :"+err.message);
 })
-app.post("/auth",authRoute);
 
-app.get("/",(req,res)=>{
-    res.send("This is injob server");
-});
+
+
 
 
